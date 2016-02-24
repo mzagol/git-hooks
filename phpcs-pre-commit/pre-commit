@@ -7,7 +7,7 @@
 # see the README
 
 PHPCS_BIN=/usr/bin/phpcs
-PHPCS_CODING_STANDARD=PEAR
+PHPCS_CODING_STANDARD=PSR2
 PHPCS_IGNORE=
 TMP_STAGING=".tmp_staging"
 
@@ -103,14 +103,14 @@ do
   STAGED_FILES="$STAGED_FILES $TMP_STAGING/$FILE"
 done
 
-OUTPUT=$($PHPCS_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES)
+OUTPUT=$($PHPCS_BIN --colors --tab-width=4 -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES)
 RETVAL=$?
 
 # delete temporary copy of staging area
 rm -rf $TMP_STAGING
 
 if [ $RETVAL -ne 0 ]; then
-    echo "$OUTPUT" | less
+    echo "$OUTPUT"
 fi
 
 exit $RETVAL
