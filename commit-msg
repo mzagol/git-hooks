@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+commit_regex='(ap-[0-9]+|merge|update version)'
+
+error_msg="Aborting commit due to missing JIRA Issue reference (eg. 'AP-1010') or 'Merge' in the message"
+
+if ! grep -iqE "$commit_regex" "$1"; then
+    echo "$error_msg" >&2
+    exit 1
+fi
